@@ -1,0 +1,121 @@
+﻿@model Mobile // Декларація, що модель цього View - це клас Mobile
+
+
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">E-Commerce Store</a>
+        </div>
+    </nav>
+</header>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 mb-4">
+                <div class="product-image-container text-center">
+                    <img src="@Model.ImageUrl" class="img-fluid rounded product-image" alt="@Model.Title">
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <h1 class="display-5 fw-bold mb-2">@Model.Title</h1>
+                <p class="text-muted lead">Category: **@Model.Category**</p>
+
+                <hr>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div class="text-warning me-2">
+                        ⭐️⭐️⭐️⭐️<span class="text-muted">☆</span>
+                    </div>
+                    <span class="text-muted">(150 Reviews)</span>
+                </div>
+
+                <h2 class="text-danger fw-bolder mb-3">
+                    @($"{@Model.Price:N0} UAH")
+                    @if (Model.Discount != null)
+                    {
+                        <small class="text-decoration-line-through text-muted ms-2">$@Model.Discount</small>
+                    }
+                </h2>
+
+                <p class="mb-4">
+                    Product ID: **@Model.Id**. Built with Bootstrap 5.1's modern utility classes, it features a sleek design, robust functionality, and unmatched performance. Limited stock available!
+                </p>
+
+                <form class="mb-5">
+                    <div class="mb-3">
+                        <label for="productSize" class="form-label fw-bold">Size / Version</label>
+                        <select class="form-select w-auto" id="productSize" required>
+                            <option selected>Standard</option>
+                            <option>Pro</option>
+                            <option>Max</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="productQuantity" class="form-label fw-bold">Quantity (Available: @Model.Quantity)</label>
+                        <input type="number" class="form-control w-auto" id="productQuantity" value="1" min="1" max="@Model.Quantity">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">
+                        <i class="bi bi-cart-plus-fill me-2"></i> Add to Cart
+                    </button>
+                </form>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-success p-2">Free Shipping</span>
+                    @if (@Model.Quantity > 0)
+                    {
+                        <span class="badge bg-info text-dark p-2">In Stock (@Model.Quantity units)</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger p-2">Out of Stock</span>
+                    }
+                    <span class="badge bg-secondary p-2">Ships in 1-2 Days</span>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-3">Product Description & Specifications</h3>
+                <div class="tab-content border border-top-0 p-3" id="productTabContent">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <p>Detailed overview of the **@Model.Title**. This smartphone falls under the **@Model.Category** category. It is one of the best value devices available with ID **@Model.Id**.</p>
+                        <ul>
+                            <li>**Feature 1:** Unrivaled durability and quality.</li>
+                            <li>**Feature 2:** Ergonomic design for maximum comfort.</li>
+                            <li>**Feature 3:** Easy integration with other systems.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Product ID</th>
+                                    <td>@Model.Id</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Category</th>
+                                    <td>@Model.Category</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Available Quantity</th>
+                                    <td>@Model.Quantity</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
